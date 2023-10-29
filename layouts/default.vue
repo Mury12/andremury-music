@@ -19,7 +19,6 @@
 .__page-root {
   font-family: Mohave, "Open Sans";
   color: white;
-  top: -5px;
   // padding-top: 5px;
   min-height: 100dvh;
   position: relative;
@@ -67,5 +66,13 @@
 
 <style> .pointer {
    cursor: pointer;
+ }
+
+ .opacity-0\.8 {
+   opacity: 0.8;
+ }
+
+ .opacity-0\.5 {
+   opacity: 0.5;
  }
 </style>

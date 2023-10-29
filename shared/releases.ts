@@ -12,7 +12,7 @@ export const releases: Release[] = [
         title: 'The Night',
         isAvailable: true,
         releaseDate: new Date(2020, 10, 13),
-        file: 'the-night.mp3',
+        file: 'black-mustang.mp3',
       },
     ],
     deezerUrl: 'https://www.deezer.com/br/album/184911232',
@@ -27,9 +27,9 @@ export const releases: Release[] = [
     songs: [
       {
         title: 'Meu Chevrolet',
-        isAvailable: false,
+        isAvailable: true,
         releaseDate: new Date(2023, 11, 22),
-        file: 'meu-chevrolet.mp3',
+        file: 'meu-chevy.mp3',
       },
     ],
     type: 'Single',

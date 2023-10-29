@@ -1,5 +1,5 @@
 <template>
-    <BRow class="release-list justify-content-center px-0">
+    <BRow class="release-list justify-content-center px-0 user-select-none">
         <BCol v-for="(item, index) in items" :key="index" cols="auto" class="release-item-wrap px-0 px-md-4 mb-4">
             <ReleaseItem :item="item" />
         </BCol>
@@ -13,3 +13,15 @@ import { releases } from '~/shared/releases';
 const items = ref<Release[]>(releases);
 
 </script>
+
+<style lang="scss" scoped>
+.release-item-wrap {
+    transition: ease-in-out 100ms;
+
+    @media screen and (min-width: 768px) {
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}
+</style>

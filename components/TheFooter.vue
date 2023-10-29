@@ -1,5 +1,5 @@
 <template>
-  <div class="footer position-relative w-100 px-4 pt-3 pb-1">
+  <div class="footer w-100 px-4 pt-3 pb-1">
     <BRow class="align-items-center">
       <BCol cols="0" md="4" class="" />
       <BCol cols="7" md="4" class="text-center text-white rights">All rights reserved - Andre Mury 2023 ©</BCol>
@@ -20,10 +20,16 @@
 
 <style lang="scss" scoped>
 .footer {
+
+  position: absolute;
   bottom: 0;
   left: 0;
   margin: 0;
 
+  @media screen and (max-width: 768px) {
+    position: relative;
+    z-index: inherit;
+  }
   .rights {
     @media screen and (max-width: 768px) {
       font-size: 12px;

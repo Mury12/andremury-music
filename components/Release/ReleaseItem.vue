@@ -1,7 +1,7 @@
 <template>
     <div class="release-item position-relative mb-4 h-100 align-items-start">
-        <div class="mask position-absolute w-100 h-100" :style="{ backgroundImage }" />
-        <div class="mask position-absolute w-100 h-100 bg-black" />
+        <div class="mask bg opacity-0.8 position-absolute w-100 h-100" :style="{ backgroundImage }" />
+        <div class="mask opacity-0.5 position-absolute w-100 h-100 bg-black" />
 
         <BRow class="p-3 pt-2">
             <BCol cols="12" class="release-card-header release-card-title text-disabled">
@@ -29,7 +29,7 @@
                             'disabled': !song.isAvailable,
                             pointer: song.isAvailable
                         }">
-                            <ReleasePlayIcon v-if="isPlaying !== song.title" />
+                            <ReleasePlayIcon v-if="isPlaying !== song.file" />
                             <ReleaseStopIcon v-else />
                         </div>
                         <div class="mx-2">{{ song.title }} <small class="text-disabled">{{ formatDate(song.releaseDate)
@@ -48,7 +48,7 @@ const { item } = defineProps<{
     item: Release
 }>()
 
-const isPlaying = ref<string>('')
+const isPlaying = useIsPlaying()
 
 const cardTitle = computed(() => {
     return item.releaseDate < new Date() ? 'Past release' : 'Coming soon';
@@ -56,6 +56,27 @@ const cardTitle = computed(() => {
 
 const backgroundImage = computed(() => {
     return `url('_nuxt/assets/covers/${item.cover}')`
+})
+
+const file = usePlayer();
+
+const volume = useVolume();
+
+watch(isPlaying, (value, old) => {
+    file?.value?.pause();
+    console.log('watch', value, old)
+    if (value && value !== old) {
+        file.value = new Audio(`_nuxt/assets/demos/${value}`)
+
+        file.value.onended = () => {
+            isPlaying.value = ''
+        }
+
+        file.value.volume = volume.value
+        if (file.value.error) {
+            console.log('error', file.value.error)
+        } else file.value?.play()
+    }
 })
 
 const formatDate = (date: Date) => {
@@ -70,7 +91,7 @@ const formatDate = (date: Date) => {
 const playSong = (song: Song) => {
     if (song.isAvailable) {
         console.log('play song')
-        isPlaying.value = isPlaying.value === song.title ? '' : song.title
+        isPlaying.value = isPlaying.value === song.file || !song.file ? '' : song.file
     }
 }
 
@@ -129,15 +150,16 @@ const playSong = (song: Song) => {
     .mask {
         top: 0;
         z-index: 0;
+
         @media screen and (max-width: 768px) {
             background-size: 200%;
-            
+
         }
+
         background-size: 110%;
         background-position: center;
         background-repeat: no-repeat;
         filter: blur(2px);
-        opacity: 0.5;
     }
 }
 </style>
