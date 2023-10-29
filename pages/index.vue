@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <HelloWorld />
-    <button @click="increase">Add</button>
+  <div class="main">
+    <TheHome />
   </div>
 </template>
 <script lang="ts">
@@ -21,3 +20,7 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+
+</style>

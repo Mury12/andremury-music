@@ -1,6 +1,8 @@
 <template>
-  <div class="header">
-    <button @click="toggleLayout" :class="btnClass">Layout</button>
+  <div class="header p-3">
+    <a href="https://dollarsoundtrack.com" target="_blank">
+      <img src="~/assets/dst-logo.png" alt="dollarsoundtrack.com">
+    </a>
   </div>
 </template>
 
@@ -25,11 +27,12 @@ export default defineComponent({
 <style scoped>
 .header {
   width: 100%;
-  border: 1px dashed black;
 }
+
 .bg-red {
   background: red;
 }
+
 .bg-blue {
   background: blue;
 }
