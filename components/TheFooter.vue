@@ -2,8 +2,8 @@
   <div class="footer position-relative w-100 px-4 pt-3 pb-1">
     <BRow class="align-items-center">
       <BCol cols="0" md="4" class="" />
-      <BCol cols="6" md="4" class="text-center text-white rights">All rights reserved - Andre Mury 2023 ©</BCol>
-      <BCol cols="6" md="4" class="">
+      <BCol cols="7" md="4" class="text-center text-white rights">All rights reserved - Andre Mury 2023 ©</BCol>
+      <BCol cols="5" md="4" class="">
         <BRow class="justify-content-end align-items-center links">
           <BCol cols="auto"><a href="https://dev.andremury.com" target="_blank">.dev</a></BCol>
           <BCol cols="auto"><a href="https://youtube.com/andremury" target="_blank"><img src="~/assets/icons/yt-icon.png"
