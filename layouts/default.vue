@@ -4,7 +4,7 @@
     <BRow class="__main">
       <BCol cols="12">
         <TheHeader />
-        <BContainer class="main">
+        <BContainer class="main px-4 px-md-0">
           <slot></slot>
         </BContainer>
       </BCol>
@@ -24,7 +24,7 @@
   position: relative;
   max-width: 100vw;
   overflow-x: hidden;
-  background-image: url("~/assets/site-bg.jpg");
+  background-image: url("/site-bg.jpg");
   background-size: cover;
   background-attachment: fixed;
   animation: appear 1s ease;
@@ -69,8 +69,8 @@
    cursor: pointer;
  }
 
- .opacity-0\.8 {
-   opacity: 0.8;
+ .opacity-0\.7 {
+   opacity: 0.7;
  }
 
  .opacity-0\.5 {

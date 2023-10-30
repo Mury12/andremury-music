@@ -1,6 +1,6 @@
 <template>
     <div class="release-item position-relative mb-4 h-100 align-items-start">
-        <div class="mask bg opacity-0.8 position-absolute w-100 h-100" :style="{ backgroundImage }" />
+        <div class="mask bg opacity-0.7 position-absolute w-100 h-100" :style="{ backgroundImage }" />
         <div class="mask opacity-0.5 position-absolute w-100 h-100 bg-black" />
 
         <BRow class="p-3 pt-2">
@@ -21,7 +21,7 @@
                         </div>
                     </div>
                 </div>
-                <ReleasePlatformIcons />
+                <!-- <ReleasePlatformIcons /> -->
             </BCol>
 
             <BCol cols="auto">
@@ -127,7 +127,8 @@ const playSong = (song?: Song) => {
 <style lang="scss" scoped>
 .release-item {
     @media screen and (max-width: 768px) {
-        width: 420px;
+        max-width: 420px;
+        width: auto;
     }
 
     width: 520px;
