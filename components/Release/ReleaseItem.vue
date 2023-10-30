@@ -8,8 +8,19 @@
                 {{ cardTitle }}
             </BCol>
 
-            <BCol cols="12" md="auto" class="left d-flex flex-column align-items-center">
-                <div class="cover mb-2" :style="{ backgroundImage }" />
+            <BCol cols="12" md="auto" class="left d-flex flex-column align-items-center position-relative">
+                <div class="cover mb-2" :style="{ backgroundImage }">
+                    <div class="cover-play pointer position-absolute d-flex align-items-center justify-content-center"
+                        v-if="item?.songs.some(item => item.isAvailable)"
+                        @click="playSong(item.songs.find(song => song.file === isPlaying))">
+                        <div class="cover-play-icon">
+                            <Transition name="fade" mode="out-in">
+                                <ReleasePlayIcon v-if="!item.songs.find(song => song.file === isPlaying)" />
+                                <ReleaseStopIcon v-else />
+                            </Transition>
+                        </div>
+                    </div>
+                </div>
                 <ReleasePlatformIcons />
             </BCol>
 
@@ -29,8 +40,10 @@
                             'disabled': !song.isAvailable,
                             pointer: song.isAvailable
                         }">
-                            <ReleasePlayIcon v-if="isPlaying !== song.file" />
-                            <ReleaseStopIcon v-else />
+                            <Transition name="fade" mode="out-in">
+                                <ReleasePlayIcon v-if="isPlaying !== song.file" />
+                                <ReleaseStopIcon v-else />
+                            </Transition>
                         </div>
                         <div class="mx-2">{{ song.title }} <small class="text-disabled">{{ formatDate(song.releaseDate)
                         }}</small></div>
@@ -62,6 +75,20 @@ const file = usePlayer();
 
 const volume = useVolume();
 
+const playNext = () => {
+    if (item.songs.length > 1) {
+        const index = item.songs.findIndex(song => song.file === isPlaying.value)
+        if (index !== -1) {
+            const next = item.songs[index + 1]
+            if (next?.file) {
+                isPlaying.value = next.file
+                return;
+            }
+        }
+    }
+    isPlaying.value = ''
+}
+
 watch(isPlaying, (value, old) => {
     file?.value?.pause();
     console.log('watch', value, old)
@@ -69,7 +96,7 @@ watch(isPlaying, (value, old) => {
         file.value = new Audio(`_nuxt/assets/demos/${value}`)
 
         file.value.onended = () => {
-            isPlaying.value = ''
+            playNext()
         }
 
         file.value.volume = volume.value
@@ -80,18 +107,18 @@ watch(isPlaying, (value, old) => {
 })
 
 const formatDate = (date: Date) => {
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString('fr-CA', {
         year: 'numeric',
         month: 'numeric',
         day: 'numeric',
-
     })
 }
 
-const playSong = (song: Song) => {
-    if (song.isAvailable) {
-        console.log('play song')
-        isPlaying.value = isPlaying.value === song.file || !song.file ? '' : song.file
+const playSong = (song?: Song) => {
+    const toPlay = song || item.songs.find(song => song.isAvailable)
+    if (toPlay?.isAvailable) {
+        console.info(`Playing ${toPlay.title}`)
+        isPlaying.value = isPlaying.value === toPlay.file || !toPlay.file ? '' : toPlay.file
     }
 }
 
@@ -144,6 +171,30 @@ const playSong = (song: Song) => {
             width: 200px;
             background-size: cover;
             background-position: center;
+            position: inherit;
+            z-index: 0;
+
+            .cover-play {
+                transition: ease-in-out 0.2s;
+                opacity: 0;
+                height: 100%;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.4);
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                .cover-play-icon {
+
+                    .play-icon,
+                    .stop-icon {
+                        transform: scale(4);
+                    }
+
+                    z-index: 2;
+                }
+            }
         }
     }
 
@@ -161,5 +212,7 @@ const playSong = (song: Song) => {
         background-repeat: no-repeat;
         filter: blur(2px);
     }
+
+
 }
 </style>

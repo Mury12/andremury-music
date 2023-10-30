@@ -27,6 +27,7 @@
   background-image: url("~/assets/site-bg.jpg");
   background-size: cover;
   background-attachment: fixed;
+  animation: appear 1s ease;
 
   .__main {
     padding-top: 5px;
@@ -74,5 +75,39 @@
 
  .opacity-0\.5 {
    opacity: 0.5;
+ }
+
+ .fade-enter-active,
+ .fade-leave-active {
+   transition: opacity 0.2s ease;
+ }
+
+ .fade-enter-from,
+ .fade-leave-to {
+   opacity: 0;
+ }
+
+
+ @keyframes appear {
+   0% {
+     opacity: 0;
+   }
+
+   100% {
+     opacity: 1;
+   }
+ }
+
+ @keyframes slide-down {
+   0% {
+     opacity: 0;
+     transform: translateY(-20px);
+   }
+
+   100% {
+     opacity: 1;
+     transform: translateY(0);
+   }
+
  }
 </style>
