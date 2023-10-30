@@ -68,7 +68,7 @@ const cardTitle = computed(() => {
 })
 
 const backgroundImage = computed(() => {
-    return `url('_nuxt/assets/covers/${item.cover}')`
+    return `url('/covers/${item.cover}')`
 })
 
 const file = usePlayer();
@@ -93,7 +93,7 @@ watch(isPlaying, (value, old) => {
     file?.value?.pause();
     console.log('watch', value, old)
     if (value && value !== old) {
-        file.value = new Audio(`_nuxt/assets/demos/${value}`)
+        file.value = new Audio(`/demos/${value}`)
 
         file.value.onended = () => {
             playNext()

@@ -5,7 +5,8 @@
     "dev": "rm -rf .nuxt && PORT=8080 nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "start": "nuxt start"
   },
   "devDependencies": {},
   "dependencies": {
